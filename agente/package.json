@@ -1,0 +1,13 @@
+{
+  "name": "agente-digital-puente",
+  "version": "1.0.0",
+  "description": "Puente WhatsApp Cloud API <-> Claude Code",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}

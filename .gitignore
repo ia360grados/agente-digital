@@ -1,0 +1,13 @@
+# Credenciales — NUNCA subir
+agente/.env
+
+# Generados en la máquina del cliente
+agente/CLAUDE.md
+agente/agente.log
+skills/*/agenda.md
+
+# Dependencias
+node_modules/
+
+# macOS
+.DS_Store
