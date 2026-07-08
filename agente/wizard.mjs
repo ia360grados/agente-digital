@@ -6,6 +6,7 @@ import { createInterface } from 'node:readline/promises';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { activar } from './licencia.mjs';
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -15,6 +16,34 @@ const ask = async (pregunta, porDefecto = '') => {
   const r = (await rl.question(`${pregunta}${sufijo}: `)).trim();
   return r || porDefecto;
 };
+
+console.log('');
+console.log('══════════════════════════════════════════════');
+console.log('   🔑 TU LICENCIA');
+console.log('══════════════════════════════════════════════');
+console.log('   La recibiste por email al comprar (AGD-XXXX-XXXX-XXXX).');
+console.log('   Vale para UN ordenador y UN número de WhatsApp.');
+console.log('');
+let licenciaOk = false;
+for (let intento = 1; intento <= 3 && !licenciaOk; intento++) {
+  const clave = await ask('Tu clave de licencia');
+  try {
+    const res = await activar(clave);
+    if (res.ok) {
+      console.log(`✅ ${res.mensaje || 'Licencia activada'}`);
+      licenciaOk = true;
+    } else {
+      console.log(`❌ ${res.error}`);
+    }
+  } catch {
+    console.log('❌ No hay conexión a internet. Conéctate y vuelve a intentarlo.');
+  }
+}
+if (!licenciaOk) {
+  console.log('');
+  console.log('No se pudo activar la licencia. Escríbenos: alberto.scale1@gmail.com');
+  process.exit(1);
+}
 
 console.log('');
 console.log('══════════════════════════════════════════════');

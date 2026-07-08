@@ -20,6 +20,7 @@ import { spawn } from 'node:child_process';
 import { readFileSync, appendFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { comprobar, vincularNumero } from './licencia.mjs';
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const MODO_VINCULAR = process.argv.includes('--vincular');
@@ -65,6 +66,21 @@ function cerebro(texto, remitente) {
   });
 }
 
+// ---------- Licencia: al arrancar y cada 24h ----------
+let miNumero = '';
+const licencia = await comprobar();
+if (!licencia.ok) {
+  log(`🔒 LICENCIA: ${licencia.error}`);
+  process.exit(1);
+}
+setInterval(async () => {
+  const l = await comprobar(miNumero);
+  if (!l.ok) {
+    log(`🔒 LICENCIA: ${l.error} — el agente se detiene.`);
+    process.exit(1);
+  }
+}, 24 * 60 * 60 * 1000);
+
 // ---------- Conexión WhatsApp ----------
 let reintentos = 0;
 async function iniciar() {
@@ -91,6 +107,16 @@ async function iniciar() {
     if (connection === 'open') {
       reintentos = 0;
       log('✅ WhatsApp conectado. El agente está en su puesto.');
+      // Casar el número del agente con la licencia
+      miNumero = (sock.user?.id || '').split(':')[0].replace(/\D/g, '');
+      if (miNumero) {
+        vincularNumero(miNumero).then((r) => {
+          if (!r.ok) {
+            log(`🔒 LICENCIA: ${r.error} — el agente se detiene.`);
+            process.exit(1);
+          }
+        });
+      }
       if (MODO_VINCULAR) {
         console.log('\n🎉 ¡Vinculado! Ya puedes continuar con la instalación.');
         setTimeout(() => process.exit(0), 3000);
