@@ -15,16 +15,21 @@ agenda citas, hace facturas y te informa cada mañana.
    └── RustDesk               ← soporte remoto
 ```
 
-## Instalación rápida (macOS)
+## Instalación con UN comando (macOS)
+
+Pega esto en la Terminal y sigue las instrucciones en pantalla:
 
 ```bash
-git clone https://github.com/TU_USUARIO/agente-digital.git ~/agente-digital
-cd ~/agente-digital
-./install.sh      # instala dependencias y servicios
-./wizard.sh       # configura el agente para este negocio
+curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/agente-digital/main/instalar.sh | bash
 ```
 
-Guía completa paso a paso: [docs/GUIA-INSTALACION.md](docs/GUIA-INSTALACION.md)
+Después, configura tu negocio:
+
+```bash
+cd ~/agente-digital && ./wizard.sh
+```
+
+Guía completa paso a paso (con capturas): [docs/GUIA-INSTALACION.md](docs/GUIA-INSTALACION.md)
 
 ## Sin credenciales en este repo
 
