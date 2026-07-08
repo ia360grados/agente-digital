@@ -4,52 +4,57 @@ Un agente de IA que vive en un ordenador de tu oficina, siempre encendido,
 y al que hablas por **WhatsApp** como a un empleado más: responde emails,
 agenda citas, hace facturas y te informa cada mañana.
 
-## Arquitectura
+## Filosofía: como contratar a una persona
+
+Tu agente tiene, igual que un trabajador de verdad:
+- **Su propio móvil**: un número de WhatsApp dedicado (nunca el tuyo personal)
+- **Su propia mesa**: un ordenador dedicado, siempre encendido
+
+## Arquitectura (v2 — WhatsApp por QR)
 
 ```
-[Mac siempre encendido en el negocio del cliente]
+[Ordenador del cliente — Mac o Windows]
+   ├── agente/lector.mjs      ← WhatsApp vía QR (como WhatsApp Web)
    ├── Claude Code            ← el cerebro (cuenta propia del cliente)
-   ├── agente/servidor.js     ← puente WhatsApp (Cloud API oficial)
+   ├── agente/wizard.mjs      ← configuración en 6 preguntas
    ├── skills/                ← capacidades instalables (plugins)
-   ├── launchd/               ← autoarranque + anti-suspensión
-   └── RustDesk               ← soporte remoto
+   └── autoarranque           ← launchd (Mac) / Startup (Windows)
 ```
 
-## Instalación con UN comando (macOS)
+Sin API de Meta, sin webhooks, sin túneles: el agente se vincula
+escaneando un QR, exactamente igual que WhatsApp Web.
 
-Pega esto en la Terminal y sigue las instrucciones en pantalla:
+## Instalación (doble clic)
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/agente-digital/main/instalar.sh | bash
-```
+- **Mac**: descargar **`Instalar Agente.command`** → clic derecho → Abrir
+- **Windows**: descargar **`Instalar-Agente.bat`** → doble clic
 
-Después, configura tu negocio:
+El instalador lo hace todo solo. El cliente solo: acepta permisos,
+inicia sesión en Claude, responde 6 preguntas y escanea el QR.
 
-```bash
-cd ~/agente-digital && ./wizard.sh
-```
+## Requisitos mínimos
 
-Guía completa paso a paso (con capturas): [docs/GUIA-INSTALACION.md](docs/GUIA-INSTALACION.md)
+| | Mac | Windows |
+|---|---|---|
+| Sistema | macOS 13+ (2018 en adelante) | Windows 10/11 (64 bits) |
+| Memoria | 8 GB RAM | 8 GB RAM |
+| Disco | 10 GB libres | 10 GB libres |
+| Red | Internet estable (cable mejor) | Internet estable |
+
+Además: número de WhatsApp **dedicado** (SIM prepago vale) activado en
+cualquier móvil, y cuenta de **Claude Pro** propia del cliente.
 
 ## Sin credenciales en este repo
 
-Este repositorio **no contiene ningún acceso, clave ni token**. Todas las
-credenciales (WhatsApp, Claude, email...) se configuran en la máquina del
-cliente durante el wizard y viven solo en su `agente/.env` (ignorado por git).
+Este repositorio no contiene ningún acceso, clave ni token. La sesión de
+WhatsApp, la cuenta de Claude y la configuración viven solo en la máquina
+del cliente (ignorados por git).
 
 ## Skills (plugins)
 
-El agente base sabe conversar y ejecutar tareas generales. Las **skills**
-añaden capacidades concretas (gestión de citas, facturación, informes...)
-y se instalan copiando una carpeta dentro de `skills/`.
-Ver [skills/README.md](skills/README.md).
-
-## Requisitos
-
-- macOS (Apple Silicon o Intel)
-- Ordenador siempre encendido y con internet
-- Cuenta de Claude (Pro o superior) propia del cliente
-- Número de WhatsApp Business (Cloud API de Meta)
+El agente base conversa y gestiona citas. Las **skills** añaden
+capacidades (facturación, email, informes...) copiando una carpeta en
+`skills/`. Ver [skills/README.md](skills/README.md).
 
 ## Licencia
 

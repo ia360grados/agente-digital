@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.agentedigital.puente</string>
+    <string>com.agentedigital.agente</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/bin/env</string>
         <string>node</string>
-        <string>__DIR__/agente/servidor.js</string>
+        <string>__DIR__/agente/lector.mjs</string>
     </array>
     <key>WorkingDirectory</key>
     <string>__DIR__/agente</string>

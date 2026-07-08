@@ -1,9 +1,8 @@
-# Credenciales — NUNCA subir
-agente/.env
-
-# Generados en la máquina del cliente
+# Datos del cliente — NUNCA subir
+agente/config.json
 agente/CLAUDE.md
 agente/agente.log
+agente/auth/
 skills/*/agenda.md
 
 # Dependencias

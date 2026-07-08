@@ -1,13 +1,17 @@
 {
-  "name": "agente-digital-puente",
-  "version": "1.0.0",
-  "description": "Puente WhatsApp Cloud API <-> Claude Code",
-  "main": "servidor.js",
+  "name": "agente-digital",
+  "version": "2.0.0",
+  "description": "Empleado digital por WhatsApp (vía QR) con Claude Code como cerebro",
+  "type": "module",
+  "main": "lector.mjs",
   "scripts": {
-    "start": "node servidor.js"
+    "start": "node lector.mjs",
+    "vincular": "node lector.mjs --vincular",
+    "wizard": "node wizard.mjs"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "@whiskeysockets/baileys": "^6.7.9",
+    "pino": "^9.5.0",
+    "qrcode-terminal": "^0.12.0"
   }
 }

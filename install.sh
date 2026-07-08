@@ -42,10 +42,9 @@ fi
 echo "   RustDesk OK. Recordar permisos: Accesibilidad + Grabación de pantalla."
 
 # ---------- 5. Dependencias del agente ----------
-step "5/6 Dependencias del puente WhatsApp"
+step "5/6 Dependencias del agente (WhatsApp vía QR)"
 cd "$DIR/agente" && npm install --silent
-[ -f "$DIR/agente/.env" ] || cp "$DIR/agente/.env.example" "$DIR/agente/.env"
-echo "   Dependencias OK. Credenciales pendientes (se rellenan en el wizard)."
+echo "   Dependencias OK."
 
 # ---------- 6. Servicios: autoarranque + anti-suspensión ----------
 step "6/6 Servicios (launchd)"
@@ -70,5 +69,6 @@ echo ""
 echo " SIGUIENTES PASOS:"
 echo "   1. El cliente inicia sesión en Claude:  claude"
 echo "   2. Configurar el negocio:               ./wizard.sh"
-echo "   3. Permisos de RustDesk en Ajustes > Privacidad y Seguridad"
+echo "   3. Vincular WhatsApp (QR):              cd agente && node lector.mjs --vincular"
+echo "   4. Permisos de RustDesk en Ajustes > Privacidad y Seguridad"
 echo "════════════════════════════════════════════"
