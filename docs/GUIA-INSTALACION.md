@@ -40,7 +40,7 @@ Enviar al cliente esta lista por email/WhatsApp:
 Abrir Terminal en el Mac del cliente:
 
 ```bash
-git clone https://github.com/TU_USUARIO/agente-digital.git ~/agente-digital
+git clone https://github.com/ia360grados/agente-digital.git ~/agente-digital
 cd ~/agente-digital
 chmod +x install.sh wizard.sh
 ./install.sh

@@ -21,7 +21,7 @@ echo ""
 echo "══════════════════════════════════════════════════"
 read -p "Pulsa INTRO para empezar..." _
 
-REPO_URL="https://github.com/TU_USUARIO/agente-digital.git"
+REPO_URL="https://github.com/ia360grados/agente-digital.git"
 DEST="$HOME/agente-digital"
 paso() { echo ""; echo "──────────────────────────────────────"; echo "▶ $1"; echo "──────────────────────────────────────"; }
 

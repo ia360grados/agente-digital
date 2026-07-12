@@ -2,12 +2,12 @@
 # ============================================================
 #  Agente Digital — Instalador de UN comando
 #  El cliente solo pega esto en la Terminal:
-#    curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/agente-digital/main/instalar.sh | bash
+#    curl -fsSL https://raw.githubusercontent.com/ia360grados/agente-digital/main/instalar.sh | bash
 #  Descarga el repo y ejecuta la instalación completa.
 # ============================================================
 set -e
 
-REPO_URL="https://github.com/TU_USUARIO/agente-digital.git"
+REPO_URL="https://github.com/ia360grados/agente-digital.git"
 DEST="$HOME/agente-digital"
 
 echo "════════════════════════════════════════════"

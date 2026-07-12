@@ -22,7 +22,7 @@ echo.
 echo ==================================================
 pause
 
-set REPO_URL=https://github.com/TU_USUARIO/agente-digital.git
+set REPO_URL=https://github.com/ia360grados/agente-digital.git
 set DEST=%USERPROFILE%\agente-digital
 
 REM ---------- 1. Git ----------
