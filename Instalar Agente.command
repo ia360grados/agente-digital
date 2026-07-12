@@ -116,6 +116,27 @@ launchctl load "$HOME/Library/LaunchAgents/com.agentedigital.agente.plist"
 launchctl unload "$HOME/Library/LaunchAgents/com.agentedigital.antisueno.plist" 2>/dev/null || true
 launchctl load "$HOME/Library/LaunchAgents/com.agentedigital.antisueno.plist"
 
+# Auto-actualización nocturna (4:30)
+chmod +x "$DEST/actualizar.sh"
+cat > "$HOME/Library/LaunchAgents/com.agentedigital.actualizador.plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.agentedigital.actualizador</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string><string>$DEST/actualizar.sh</string>
+  </array>
+  <key>StartCalendarInterval</key><dict>
+    <key>Hour</key><integer>4</integer><key>Minute</key><integer>30</integer>
+  </dict>
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict></plist>
+EOF
+launchctl unload "$HOME/Library/LaunchAgents/com.agentedigital.actualizador.plist" 2>/dev/null || true
+launchctl load "$HOME/Library/LaunchAgents/com.agentedigital.actualizador.plist"
+
 echo ""
 echo "══════════════════════════════════════════════════"
 echo ""

@@ -61,6 +61,16 @@ console.log('6/6 · ¿Qué números de móvil pueden darle órdenes al agente?')
 console.log('      (El tuyo y los de tu equipo. Con prefijo y sin espacios,');
 console.log('       separados por comas. Ej: 34600111222,34600333444)');
 const numeros = await ask('      Números autorizados');
+
+console.log('');
+console.log('──────────────────────────────────────────────');
+console.log('   🧰 LAS HERRAMIENTAS DE TU NEGOCIO');
+console.log('   (para que tu agente las aprenda desde el día 1)');
+console.log('──────────────────────────────────────────────');
+console.log('');
+const facturacion = await ask('¿Qué programa usáis para facturar/contabilidad?\n  (Holded, A3, ContaSol, Excel, ninguno...)', 'ninguno');
+const herramientas = await ask('¿Qué otras herramientas usáis a diario?\n  (Google Calendar, Gmail, Drive, Excel...)', '');
+const procesos = await ask('Cuéntale en 1-2 frases algo clave de cómo trabajáis\n  (opcional, ej: "las facturas se envían siempre el día 1")', '');
 rl.close();
 
 // ---------- config.json ----------
@@ -72,18 +82,34 @@ const config = {
   tono,
   idioma: 'español',
   numeros_autorizados: numeros.split(',').map((n) => n.trim()).filter(Boolean),
+  facturacion,
+  herramientas,
+  procesos,
 };
 writeFileSync(join(DIR, 'config.json'), JSON.stringify(config, null, 2));
 
 // ---------- CLAUDE.md (personalidad del agente) ----------
 const plantilla = readFileSync(join(DIR, 'CLAUDE.md.template'), 'utf8');
-const claudeMd = plantilla
+let claudeMd = plantilla
   .replaceAll('{{NEGOCIO}}', negocio)
   .replaceAll('{{SECTOR}}', sector)
   .replaceAll('{{AGENTE}}', nombreAgente)
   .replaceAll('{{HORARIO}}', horario)
   .replaceAll('{{TONO}}', tono)
   .replaceAll('{{IDIOMA}}', 'español');
+
+claudeMd += `
+## Herramientas del negocio (aprendidas en la instalación)
+
+- **Facturación/contabilidad**: ${facturacion || 'sin especificar'}
+- **Otras herramientas del día a día**: ${herramientas || 'sin especificar'}
+- **Notas de cómo trabajan**: ${procesos || 'sin notas'}
+
+Ten SIEMPRE en cuenta estas herramientas al proponer o ejecutar tareas.
+Si necesitas acceder a una de ellas y no sabes cómo, pregunta al usuario
+cómo lo hace él (paso a paso) y APUNTA lo aprendido en este archivo, en
+esta misma sección, para recordarlo para siempre.
+`;
 writeFileSync(join(DIR, 'CLAUDE.md'), claudeMd);
 
 console.log('');

@@ -84,6 +84,9 @@ powercfg /change standby-timeout-ac 0 >nul 2>nul
 powercfg /change hibernate-timeout-ac 0 >nul 2>nul
 start "" wscript "%VBS%"
 
+REM Auto-actualizacion nocturna (4:30)
+schtasks /create /f /tn "AgenteDigitalActualizar" /sc daily /st 04:30 /tr "\"%DEST%\actualizar.bat\"" >nul 2>nul
+
 cls
 echo ==================================================
 echo.
